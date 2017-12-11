@@ -46,9 +46,30 @@ public class MainActivity extends AppCompatActivity {
                 .leftIcon(convertDrawableToBitmap(deleteIconWhite))
                 .rightBackgroundColor(green)
                 .rightIcon(convertDrawableToBitmap(checkIconWhite))
+                .onSwipeListener(new CustomItemTouchHelperCallback.OnSwipeListener() {
+                    @Override
+                    public void onSwipeRight(RecyclerView.ViewHolder vh) {
+                        int position = vh.getAdapterPosition();
+                        Item item = adapter.getItemAt(position);
+                        item.status = Item.Status.CHECKED;
+                        adapter.notifyItemChanged(position);
+                    }
+
+                    @Override
+                    public void onSwipeLeft(RecyclerView.ViewHolder vh) {
+                        int position = vh.getAdapterPosition();
+                        Item item = adapter.getItemAt(position);
+                        item.status = Item.Status.DELETED;
+                        adapter.notifyItemChanged(position);
+                    }
+                })
                 .build();
         ItemTouchHelper helper = new ItemTouchHelper(helperCb);
         helper.attachToRecyclerView(recyclerView);
+
+        // Add animation
+        CustomItemAnimator animator = new CustomItemAnimator();
+        recyclerView.setItemAnimator(animator);
     }
 
     private float dpToPx(float dp) {
