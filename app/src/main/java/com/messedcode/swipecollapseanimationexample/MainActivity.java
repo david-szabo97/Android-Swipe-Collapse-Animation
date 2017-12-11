@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
         // Layout manager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+
+        // Add swipe
+        CustomItemTouchHelperCallback helperCb = new CustomItemTouchHelperCallback();
+        ItemTouchHelper helper = new ItemTouchHelper(helperCb);
+        helper.attachToRecyclerView(recyclerView);
     }
 
 }
