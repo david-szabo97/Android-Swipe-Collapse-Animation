@@ -68,7 +68,12 @@ public class MainActivity extends AppCompatActivity {
         helper.attachToRecyclerView(recyclerView);
 
         // Add animation
-        CustomItemAnimator animator = new CustomItemAnimator();
+        CustomItemAnimator animator = new CustomItemAnimator(new CustomItemAnimator.onAnimationEndListener() {
+            @Override
+            public void onChangeEnd(RecyclerView.ViewHolder newHolder) {
+                adapter.remove(newHolder.getAdapterPosition());
+            }
+        });
         recyclerView.setItemAnimator(animator);
     }
 
