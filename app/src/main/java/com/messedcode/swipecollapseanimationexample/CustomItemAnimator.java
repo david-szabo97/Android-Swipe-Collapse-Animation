@@ -15,6 +15,16 @@ public class CustomItemAnimator extends DefaultItemAnimator {
     public static final Interpolator COLLAPSE_INTERPOLATOR = new AccelerateInterpolator(3f);
     public static final int COLLAPSE_ANIM_DURATION = 600;
 
+    private onAnimationEndListener animationEndListener;
+
+    public CustomItemAnimator() {
+
+    }
+
+    public CustomItemAnimator(onAnimationEndListener listener) {
+        this.animationEndListener = listener;
+    }
+
     @Override
     public boolean canReuseUpdatedViewHolder(@NonNull RecyclerView.ViewHolder viewHolder) {
         return true;
@@ -39,12 +49,19 @@ public class CustomItemAnimator extends DefaultItemAnimator {
             @Override
             public void onAnimationEnd(Animator animator) {
                 dispatchChangeFinished(newHolder, false);
+                if (animationEndListener != null) {
+                    animationEndListener.onChangeEnd(newHolder);
+                }
             }
         });
 
         set.start();
 
         return false;
+    }
+
+    interface onAnimationEndListener {
+        void onChangeEnd(RecyclerView.ViewHolder newHolder);
     }
 
 }
