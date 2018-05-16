@@ -1,7 +1,7 @@
 Android Swipe Collapse Animation (Java)
 =========
 
-A simple example project which shows you how you can setup a RecyclerView to make your items make them collapse when you swipe them.
+A simple example project which shows you how you can setup a RecyclerView to make your items collapse when you swipe them.
 
 Blog post with more exaplanation can be found on my blog: [Click here to view the blog post](https://messedcode.com/dave/posts/android-java-swipe-collapse-animation)
 
